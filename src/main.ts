@@ -1,3 +1,4 @@
+import { initPwa } from './pwa'
 import './style.css'
 import './skins.css'
 import { applyPrefs, loadPrefs, savePrefs } from './prefs'
@@ -139,6 +140,7 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('hashchange', () => void route())
 
 async function boot() {
+  initPwa()
   applyPrefs(ctx.prefs)
   startTimeTracker()
   watchSprint()

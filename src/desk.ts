@@ -197,7 +197,7 @@ export function renderDesk(root: HTMLElement, ctx: Ctx) {
   const wipList = karya.filter((w) => w.stage !== 'terbit').sort(sorter(sortKey('proses')))
   const jBook = [...jurnal].filter((w) => !w.asleep).sort(byTouch)[0] ?? [...jurnal].sort(byTouch)[0]
   const shelves = `<div class="shelves">
-    <section class="shelf" aria-label="Karya yang sudah terbit">
+    <section class="shelf shelf-pub" aria-label="Karya yang sudah terbit">
       <div class="shelf-h"><span class="lbl">Sudah terbit</span><span class="count">${pubList.length}</span>${sortSel('terbit')}</div>
       <div class="rows">${pubList.length ? pubList.map(bookHtml).join('') : '<p class="bk-empty">Belum ada karya terbit. Atur sebuah buku, pilih tahap Terbit, dan ia pindah ke rak ini.</p>'}</div>
     </section>
@@ -213,7 +213,7 @@ export function renderDesk(root: HTMLElement, ctx: Ctx) {
         <div class="plank"></div>
       </section>
     </div>
-    <section class="shelf" aria-label="Karya yang sedang diproses">
+    <section class="shelf shelf-wip" aria-label="Karya yang sedang diproses">
       <div class="shelf-h"><span class="lbl">Sedang diproses</span><span class="count">${wipList.length}</span><button type="button" class="shelf-add" data-act="new">+ Karya baru</button>${sortSel('proses')}</div>
       <div class="rows">${wipList.length ? wipList.map(bookHtml).join('') : '<p class="bk-empty">Belum ada karya yang sedang diproses.</p>'}</div>
     </section>

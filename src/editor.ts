@@ -49,10 +49,10 @@ export function renderEditor(root: HTMLElement, ctx: Ctx, work: Work, partId: st
     <div class="lamp-rail" aria-hidden="true"></div>
     <div class="lamp-head" aria-hidden="true"></div>
     <header class="ed-bar">
-      <a class="btn" href="#/">Kembali ke meja</a>
+      <a class="btn" href="#/">Kembali<span class="lg"> ke meja</span></a>
       <div class="crumb"><span class="crumb-work">${escapeHtml(work.title)}</span><span id="saved" aria-live="polite">Tersimpan</span></div>
       <div class="ed-tools">
-        <button class="btn snd-btn" id="b-sound" aria-haspopup="dialog"><i class="snd-ind">${soundIcon}</i>Suara</button>
+        <button class="btn snd-btn" id="b-sound" aria-haspopup="dialog"><i class="snd-ind">${soundIcon}</i><span class="tx">Suara</span></button>
         <button class="btn" id="b-export">Ekspor</button>
         <button class="btn" id="b-parts" aria-expanded="false" aria-controls="parts">Bagian</button>
         <button class="btn" id="b-style" aria-expanded="false" aria-controls="style">Gaya tulis</button>

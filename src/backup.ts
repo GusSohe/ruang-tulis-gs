@@ -10,6 +10,7 @@ import { getIntro, getMode, setIntro } from './mode'
 import { openWelcome } from './welcome'
 import { openDrive } from './driveui'
 import { isLinked } from './drive'
+import { canPromptInstall, isIOS, isStandalone, offlineState, promptInstall } from './pwa'
 
 export const lastBackup = () => {
   const v = Number(localStorage.getItem('rtgs.backup.at'))
@@ -44,6 +45,14 @@ export async function importBackup(ctx: Ctx, f: File): Promise<boolean> {
   }
 }
 
+function pwaRow(): string {
+  if (isStandalone()) return '<p class="bk-pwa">Terpasang sebagai aplikasi. Bisa dibuka tanpa internet.</p>'
+  if (canPromptInstall()) return '<p class="bk-pwa">Pasang sebagai aplikasi supaya bisa dibuka tanpa internet. <button type="button" class="btn-text" id="bk-p">Pasang aplikasi</button></p>'
+  if (isIOS()) return '<p class="bk-pwa">Di iPhone/iPad: ketuk Bagikan, lalu “Tambahkan ke Layar Utama” agar bisa dibuka tanpa internet.</p>'
+  if (offlineState() === 'siap') return '<p class="bk-pwa">Sudah tersimpan untuk dibuka tanpa internet. Untuk ikon di layar utama, pakai menu peramban: “Instal aplikasi” atau “Tambahkan ke layar utama”.</p>'
+  return ''
+}
+
 export function openBackup(ctx: Ctx, after: () => void) {
   document.querySelector('dialog.backup-dlg')?.remove()
   const lb = lastBackup()
@@ -53,9 +62,10 @@ export function openBackup(ctx: Ctx, after: () => void) {
     <p class="sp-sub">Semua tersimpan di peramban ini, tanpa server. Jika data peramban terhapus, karya ikut hilang. Berkas cadangan menyelamatkannya.</p>
     <p class="bk-last${backupDue(ctx) ? ' due' : ''}">${lb ? `Terakhir dicadangkan ${ago(lb)}.` : 'Belum pernah dicadangkan.'}</p>
     <p class="bk-mode">Mode: <b>${getMode() === 'drive' ? (isLinked() ? 'Google Drive, terhubung' : 'Google Drive, belum terhubung') : 'Di perangkat ini saja'}</b> <button type="button" class="btn-text" id="bk-m">Ganti</button>${getMode() === 'drive' ? ' <button type="button" class="btn-text" id="bk-g">Pengaturan Drive</button>' : ''}</p>
+    ${pwaRow()}
     <label class="sp-ck"><input type="checkbox" id="bk-i" ${getIntro() ? 'checked' : ''}> Animasi lampu saat membuka aplikasi</label>
     <div class="dialog-actions"><button type="button" class="btn" id="bk-r">Pulihkan dari berkas</button><button type="button" class="btn btn-primary" id="bk-d">Unduh cadangan</button></div>
-    <input type="file" accept="application/json,.json" hidden id="bk-f"></form>`
+    <input type="file" accept="application/json,.json" hidden id="bk-f"><p class="bk-cr">Ruang Tulis GS · © 2026 Gus Sohe. Hak cipta dilindungi.</p></form>`
   document.body.append(d)
   d.addEventListener('close', () => d.remove())
   d.querySelector('#bk-d')!.addEventListener('click', () => {
@@ -64,6 +74,7 @@ export function openBackup(ctx: Ctx, after: () => void) {
     after()
   })
   d.querySelector<HTMLInputElement>('#bk-i')!.addEventListener('change', (e) => setIntro((e.target as HTMLInputElement).checked))
+  d.querySelector('#bk-p')?.addEventListener('click', async () => { if (await promptInstall()) { d.close(); ctx.toast('Aplikasi terpasang') } })
   d.querySelector('#bk-g')?.addEventListener('click', () => { d.close(); openDrive(ctx, after) })
   d.querySelector('#bk-m')!.addEventListener('click', () => {
     d.close()

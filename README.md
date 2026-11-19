@@ -38,3 +38,12 @@ Tidak ada biaya, dan penagihan tidak perlu diaktifkan.
 
 ### Menerbitkan ke GitHub Pages
 Di repo: **Settings > Pages > Source: GitHub Actions**. Setiap push ke `main` akan membangun dan menerbitkan lewat `.github/workflows/pages.yml`.
+
+## Aplikasi terpasang dan offline (PWA)
+
+Setelah dibuka sekali lewat alamat https (misalnya GitHub Pages), aplikasi menyimpan dirinya di peramban dan bisa dibuka tanpa internet.
+Di Chrome (PC dan Android) pakai menu "Instal aplikasi" atau tombol **Pasang aplikasi** di dialog Cadangan. Di iPhone/iPad: Bagikan, lalu "Tambahkan ke Layar Utama".
+
+- `public/manifest.webmanifest`, ikon, dan `public/sw.js` ikut tersalin ke `dist/` saat `npm run build`.
+- Setiap build memberi cap versi baru pada `sw.js`, jadi pembaruan otomatis dikenali. Saat online, halaman selalu diambil terbaru; saat offline, salinan tersimpan yang dipakai.
+- Berkas tunggal `dist/index.html` tetap bisa dibuka langsung dari folder (tanpa service worker). Datanya terpisah dari versi web.
