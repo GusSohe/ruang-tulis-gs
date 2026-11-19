@@ -1,0 +1,168 @@
+/* Tema: perpustakaan, neon, glossy, sumi ink, woodblock. Tiap tema punya mode terang (siang) dan gelap (malam). */
+:root {
+  --rowh: 218px;
+  --rows-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 218' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23c9a066'/%3E%3Cstop offset='.5' stop-color='%237a5530'/%3E%3Cstop offset='1' stop-color='%23432b15'/%3E%3C/linearGradient%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.9' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 0 0.03 0 0 0 1.9 -0.8'/%3E%3C/filter%3E%3C/defs%3E%3Crect y='205' width='400' height='13' fill='url(%23p)'/%3E%3Crect y='205' width='400' height='13' filter='url(%23g)' opacity='.85'/%3E%3Crect y='205' width='400' height='1.5' fill='%23f1d9a8' opacity='.5'/%3E%3Crect y='216.5' width='400' height='1.5' fill='%23000' opacity='.35'/%3E%3C/svg%3E");
+  --plank-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 14' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='p' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23c9a066'/%3E%3Cstop offset='.5' stop-color='%237a5530'/%3E%3Cstop offset='1' stop-color='%23432b15'/%3E%3C/linearGradient%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006 0.9' numOctaves='3' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.2 0 0 0 0 0.1 0 0 0 0 0.03 0 0 0 1.9 -0.8'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='400' height='14' fill='url(%23p)'/%3E%3Crect width='400' height='14' filter='url(%23g)' opacity='.85'/%3E%3Crect width='400' height='1.5' fill='%23f1d9a8' opacity='.5'/%3E%3C/svg%3E");
+  --sh-wall: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='320' viewBox='0 0 140 320'%3E%3Cdefs%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5 0.008' numOctaves='3' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.08 0 0 0 0 0.03 0 0 0 2.2 -0.9'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='140' height='320' fill='%236b4426' opacity='.8'/%3E%3Crect width='140' height='320' filter='url(%23g)' opacity='.8'/%3E%3Crect width='2' height='320' fill='%231a0d05' opacity='.5'/%3E%3Crect x='2' width='1' height='320' fill='%23e0b075' opacity='.2'/%3E%3C/svg%3E");
+  --sh-wall-size: 140px 320px;
+}
+.shelf { background-size: auto, var(--sh-wall-size, auto); }
+
+/* ── Perpustakaan: rak mahoni, label kuningan, punggung buku bergaris emas ── */
+html[data-skin='perpus'] .shelf { position: relative; margin-top: 8px; }
+html[data-skin='perpus'] .shelf::before { content: ''; position: absolute; z-index: 2; left: -3px; right: -3px; top: -9px; height: 11px; border-radius: 10px 10px 0 0; background: linear-gradient(#d2a96e, #8a6236 55%, #3d2713); box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 240, 200, 0.5); }
+html[data-skin='perpus'] .shelf-h .lbl { font-size: 16px; padding: 3px 14px; border-radius: 3px; color: #2d1d08; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35); background: linear-gradient(#ecd591, #b88f3d 55%, #dcbb6a); box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.4); }
+html[data-skin='perpus'] .bk:not(.has-img)::before { content: ''; position: absolute; left: 19px; right: 9px; top: 8px; height: 4px; border-top: 1px solid rgba(241, 223, 178, 0.65); border-bottom: 1px solid rgba(241, 223, 178, 0.4); pointer-events: none; }
+html[data-skin='perpus'] .bk-mid::before { display: none; }
+html[data-skin='perpus'] .bk:not(.has-img) { background: linear-gradient(90deg, rgba(0, 0, 0, 0.42) 0 6px, rgba(255, 235, 190, 0.28) 6px 8px, rgba(0, 0, 0, 0.14) 8px 14px, transparent 14px),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='9'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='80' height='80' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E"),
+  linear-gradient(rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.25)), var(--bk); }
+
+/* mode gelap sedikit lebih hangat di rak */
+html[data-skin='perpus'][data-theme='malam'] { --sh-bg: linear-gradient(rgba(12, 6, 2, 0.45), rgba(12, 6, 2, 0.7)); }
+
+/* ── dasar untuk semua tema bukan-perpustakaan: latar meja digambar CSS ── */
+html:not([data-skin='perpus']) .map-bg > * { display: none; }
+html:not([data-skin='perpus']) .map-bg { background: var(--desk-bg); }
+html:not([data-skin='perpus']) .shelf::before { content: none; }
+html:not([data-skin='perpus']) { --sh-wall: none; }
+
+/* ── Neon ── */
+html[data-skin='neon'] {
+  --neon: #19e3ff; --neon2: #ff2fa8; --sh-r: 14px 14px 3px 3px; --sh-wall: none;
+  --rows-bg: linear-gradient(180deg, transparent calc(var(--rowh) - 20px), rgba(255, 47, 168, 0.2) calc(var(--rowh) - 8px), transparent calc(var(--rowh) - 1px)),
+    linear-gradient(180deg, transparent calc(var(--rowh) - 8px), #ffd0ef calc(var(--rowh) - 7px), #ff2fa8 calc(var(--rowh) - 5px), #ff6fc8 calc(var(--rowh) - 3px), transparent calc(var(--rowh) - 2px));
+  --plank-bg: linear-gradient(#ffd0ef, #ff2fa8);
+}
+html[data-skin='neon'][data-theme='malam'] {
+  --kertas: #0b0820; --kertas-2: #150f33; --panel: #130d2e; --garis: #3a2a7a; --tinta: #19e3ff; --grafit: #a79ccf; --teks: #f1ecff; --koreksi: #ff5c8a; --bayang: rgba(0, 0, 0, 0.6);
+  --glass: rgba(18, 10, 46, 0.66); --glass-b: rgba(25, 227, 255, 0.38);
+  --desk-bg: radial-gradient(70% 60% at 15% 0%, #35106f 0%, transparent 62%), radial-gradient(60% 55% at 100% 100%, #08405f 0%, transparent 62%), #0b0820;
+  --sh-tx: #ece7ff; --sh-dim: rgba(236, 231, 255, 0.7); --sh-bd: rgba(255, 47, 168, 0.65); --sh-chip: rgba(25, 227, 255, 0.14); --sh-dash: rgba(25, 227, 255, 0.5);
+  --sh-bg: linear-gradient(rgba(12, 7, 34, 0.55), rgba(12, 7, 34, 0.8)); --sh-shadow: 0 0 20px rgba(255, 47, 168, 0.28), inset 0 0 34px rgba(25, 227, 255, 0.08);
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #2a0f5e 0%, #0b0820 60%);
+}
+html[data-skin='neon'][data-theme='siang'] {
+  --kertas: #f6f2ff; --kertas-2: #ebe4ff; --panel: #fbf9ff; --garis: #d3c8f5; --tinta: #7a1fff; --grafit: #665e8c; --teks: #1b1238; --koreksi: #d41c58; --bayang: rgba(70, 30, 140, 0.22);
+  --glass: rgba(255, 255, 255, 0.72); --glass-b: rgba(122, 31, 255, 0.32);
+  --desk-bg: radial-gradient(60% 50% at 10% 0%, #ffd3f0 0%, transparent 60%), radial-gradient(60% 50% at 100% 100%, #c9ecff 0%, transparent 60%), #f4efff;
+  --sh-tx: #2a1b5c; --sh-dim: rgba(42, 27, 92, 0.7); --sh-bd: rgba(255, 47, 168, 0.7); --sh-chip: rgba(122, 31, 255, 0.12); --sh-dash: rgba(122, 31, 255, 0.45);
+  --sh-bg: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.38)); --sh-shadow: 0 0 18px rgba(255, 47, 168, 0.22);
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #2a0f5e 0%, #0b0820 60%);
+}
+html[data-skin='neon'] .bk:not(.has-img) { --bk-title: color-mix(in srgb, var(--bk) 30%, #fff); --bk-tx: #eae6ff; --bk-tshadow: 0 0 9px var(--bk); border-radius: 5px;
+  background: radial-gradient(120% 55% at 50% 0%, color-mix(in srgb, var(--bk) 42%, transparent), transparent 72%), #0d0a24;
+  box-shadow: 0 0 0 1.5px var(--bk), 0 0 13px color-mix(in srgb, var(--bk) 85%, transparent), inset 0 0 16px color-mix(in srgb, var(--bk) 30%, transparent); }
+html[data-skin='neon'] .bk-mid::before { background: var(--bk); box-shadow: 0 0 6px var(--bk); height: 2px; }
+html[data-skin='neon'] .bk-pg { background: var(--neon); box-shadow: 0 0 8px var(--neon); }
+html[data-skin='neon'] .plank { height: 5px; box-shadow: 0 0 14px #ff2fa8, 0 0 3px #fff; border-radius: 3px; }
+html[data-skin='neon'] .card { box-shadow: 0 0 20px color-mix(in srgb, var(--tinta) 18%, transparent); }
+html[data-skin='neon'] .btn-primary { box-shadow: 0 0 14px color-mix(in srgb, var(--tinta) 60%, transparent); }
+html[data-skin='neon'] .wordmark { text-shadow: 0 0 12px var(--tinta); }
+html[data-skin='neon'] .sn { box-shadow: 0 0 14px rgba(255, 255, 255, 0.25); }
+
+/* ── Glossy ── */
+html[data-skin='glossy'] {
+  --sh-r: 24px 24px 6px 6px; --sh-wall: none;
+  --rows-bg: linear-gradient(180deg, transparent calc(var(--rowh) - 14px), rgba(255, 255, 255, 0.95) calc(var(--rowh) - 14px), #d5e6ff calc(var(--rowh) - 10px), #86abf0 calc(var(--rowh) - 4px), #4a72c8 var(--rowh));
+  --plank-bg: linear-gradient(#ffffff, #cfe2ff 45%, #6f98e8);
+  --bk-tx: #fff; --bk-title: #fff; --bk-tshadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+html[data-skin='glossy'][data-theme='malam'] {
+  --kertas: #0d1433; --kertas-2: #172055; --panel: #141c46; --garis: #34428f; --tinta: #7fb2ff; --grafit: #a4b2e6; --teks: #eef3ff; --koreksi: #ff8aa0; --bayang: rgba(0, 0, 10, 0.55);
+  --glass: rgba(26, 38, 96, 0.55); --glass-b: rgba(255, 255, 255, 0.24);
+  --desk-bg: radial-gradient(60% 50% at 20% 0%, #2b3fc0 0%, transparent 65%), radial-gradient(50% 50% at 100% 100%, #5a1d9a 0%, transparent 65%), #0d1433;
+  --sh-tx: #fff; --sh-dim: rgba(255, 255, 255, 0.72); --sh-bd: rgba(255, 255, 255, 0.36); --sh-chip: rgba(255, 255, 255, 0.16); --sh-dash: rgba(255, 255, 255, 0.45);
+  --sh-bg: linear-gradient(rgba(255, 255, 255, 0.17), rgba(255, 255, 255, 0.04)); --sh-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 14px 30px rgba(0, 0, 20, 0.35);
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #243aa8 0%, #0d1433 62%);
+}
+html[data-skin='glossy'][data-theme='siang'] {
+  --kertas: #e4f1ff; --kertas-2: #d3e6fb; --panel: #f4f9ff; --garis: #bfd5f0; --tinta: #1f6bff; --grafit: #587099; --teks: #0e2150; --koreksi: #d6334f; --bayang: rgba(40, 80, 160, 0.25);
+  --glass: rgba(255, 255, 255, 0.62); --glass-b: rgba(255, 255, 255, 0.9);
+  --desk-bg: radial-gradient(60% 50% at 15% 0%, #ffffff 0%, transparent 60%), linear-gradient(160deg, #9fd0ff 0%, #d7ecff 48%, #ffd9f0 100%);
+  --sh-tx: #10306b; --sh-dim: rgba(16, 48, 107, 0.7); --sh-bd: rgba(255, 255, 255, 0.95); --sh-chip: rgba(255, 255, 255, 0.6); --sh-dash: rgba(16, 48, 107, 0.35);
+  --sh-bg: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.34)); --sh-shadow: inset 0 1px 0 #fff, 0 14px 30px rgba(40, 80, 160, 0.25);
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #243aa8 0%, #0d1433 62%);
+}
+html[data-skin='glossy'] .bk:not(.has-img) { border-radius: 7px 12px 12px 7px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0 5px, rgba(255, 255, 255, 0.4) 5px 7px, transparent 7px), linear-gradient(160deg, color-mix(in srgb, var(--bk) 55%, #fff) 0%, var(--bk) 48%, color-mix(in srgb, var(--bk) 62%, #000) 100%);
+  box-shadow: 0 9px 16px rgba(0, 0, 40, 0.38), inset 0 0 0 1px rgba(255, 255, 255, 0.4), inset 0 -12px 18px rgba(0, 0, 0, 0.22); }
+html[data-skin='glossy'] .bk:not(.has-img)::before { content: ''; position: absolute; inset: 0 0 52% 0; background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.08)); pointer-events: none; border-radius: inherit; }
+html[data-skin='glossy'] .bk-mid::before { background: rgba(255, 255, 255, 0.7); }
+html[data-skin='glossy'] .plank { border-radius: 7px; height: 12px; }
+html[data-skin='glossy'] .card { border-radius: 22px; box-shadow: 0 12px 30px var(--bayang), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+html[data-skin='glossy'] .btn, html[data-skin='glossy'] .btn-primary { border-radius: 999px; }
+html[data-skin='glossy'] .btn-primary { background: linear-gradient(#6aa7ff, var(--tinta)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 10px rgba(31, 107, 255, 0.4); color: #fff; }
+
+/* ── Sumi ink ── */
+html[data-skin='sumi'] { --sh-r: 3px 3px 0 0; --sh-bw: 2px; --sh-wall: none; --bk-tshadow: none; }
+html[data-skin='sumi'][data-theme='siang'] {
+  --kertas: #eeeae0; --kertas-2: #e3ddcd; --panel: #f6f2e8; --garis: #cdc4ae; --tinta: #1d1b19; --grafit: #6a6458; --teks: #1d1b19; --koreksi: #b02a20; --bayang: rgba(29, 27, 25, 0.16);
+  --glass: rgba(246, 242, 232, 0.82); --glass-b: rgba(29, 27, 25, 0.34);
+  --desk-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cdefs%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9 0.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.25 0 0 0 0 0.15 0 0 0 1.2 -0.35'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='300' height='300' filter='url(%23f)' opacity='.5'/%3E%3C/svg%3E"), radial-gradient(55% 40% at 12% 8%, rgba(0, 0, 0, 0.09), transparent 70%), radial-gradient(45% 40% at 92% 92%, rgba(0, 0, 0, 0.11), transparent 70%), #ece6d6;
+  --sh-tx: #1d1b19; --sh-dim: rgba(29, 27, 25, 0.62); --sh-bd: rgba(29, 27, 25, 0.78); --sh-chip: rgba(29, 27, 25, 0.08); --sh-dash: rgba(29, 27, 25, 0.4);
+  --sh-bg: linear-gradient(rgba(246, 242, 232, 0.62), rgba(246, 242, 232, 0.5)); --sh-shadow: 4px 5px 0 rgba(29, 27, 25, 0.14);
+  --rows-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 218' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-2%25' y='-300%25' width='104%25' height='700%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.45' numOctaves='3' seed='2' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 207 L400 205 L400 213 L0 214Z' fill='%231d1b19' filter='url(%23r)'/%3E%3C/svg%3E"); --plank-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 14' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-2%25' y='-100%25' width='104%25' height='300%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.45' numOctaves='3' seed='5' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='5'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 4 L400 3 L400 10 L0 11Z' fill='%231d1b19' filter='url(%23r)'/%3E%3C/svg%3E");
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #2a2724 0%, #12110f 62%);
+}
+html[data-skin='sumi'][data-theme='malam'] {
+  --kertas: #121110; --kertas-2: #1c1a18; --panel: #181614; --garis: #3a362f; --tinta: #ece5d4; --grafit: #a8a091; --teks: #ece5d4; --koreksi: #e0553a; --bayang: rgba(0, 0, 0, 0.6);
+  --glass: rgba(22, 20, 18, 0.74); --glass-b: rgba(236, 229, 212, 0.26);
+  --desk-bg: radial-gradient(55% 40% at 12% 8%, rgba(255, 255, 255, 0.07), transparent 70%), radial-gradient(45% 40% at 92% 92%, rgba(255, 255, 255, 0.05), transparent 70%), #111010;
+  --sh-tx: #ece5d4; --sh-dim: rgba(236, 229, 212, 0.62); --sh-bd: rgba(236, 229, 212, 0.55); --sh-chip: rgba(236, 229, 212, 0.1); --sh-dash: rgba(236, 229, 212, 0.4);
+  --sh-bg: linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)); --sh-shadow: 4px 5px 0 rgba(0, 0, 0, 0.5);
+  --rows-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 218' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-2%25' y='-300%25' width='104%25' height='700%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.45' numOctaves='3' seed='2' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='6'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 207 L400 205 L400 213 L0 214Z' fill='%23ece5d4' filter='url(%23r)'/%3E%3C/svg%3E"); --plank-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 14' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='r' x='-2%25' y='-100%25' width='104%25' height='300%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.45' numOctaves='3' seed='5' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='5'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M0 4 L400 3 L400 10 L0 11Z' fill='%23ece5d4' filter='url(%23r)'/%3E%3C/svg%3E");
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #2a2724 0%, #12110f 62%);
+}
+html[data-skin='sumi'] .bk:not(.has-img) { border-radius: 1px; --bk-tx: #ece5d4; --bk-title: #f3eee0;
+  background: radial-gradient(90% 55% at 28% 18%, rgba(255, 255, 255, 0.1), transparent 62%), linear-gradient(90deg, rgba(0, 0, 0, 0.5) 0 4px, transparent 4px), linear-gradient(color-mix(in srgb, var(--bk) 26%, #2a2824), color-mix(in srgb, var(--bk) 14%, #121110));
+  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.22); }
+html[data-skin='sumi'][data-theme='malam'] .bk:not(.has-img) { --bk-tx: #1d1b19; --bk-title: #1d1b19;
+  background: radial-gradient(90% 55% at 28% 18%, rgba(255, 255, 255, 0.5), transparent 62%), linear-gradient(90deg, rgba(0, 0, 0, 0.22) 0 4px, transparent 4px), linear-gradient(#e9e2d0, #d2cab6); box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.5); }
+html[data-skin='sumi'] .bk:not(.has-img)::before { content: ''; position: absolute; right: 9px; top: 9px; width: 11px; height: 11px; background: #c0392b; border-radius: 1px; transform: rotate(3deg); pointer-events: none; }
+html[data-skin='sumi'] .bk-mid::before { background: currentColor; opacity: 0.4; }
+html[data-skin='sumi'] .bk-pg { background: #c0392b; }
+html[data-skin='sumi'] .plank { background-color: transparent; box-shadow: none; height: 14px; }
+html[data-skin='sumi'] .shelf-h .lbl, html[data-skin='sumi'] .lbl, html[data-skin='sumi'] .r-title { letter-spacing: 0.02em; }
+html[data-skin='sumi'] .card { border-radius: 3px; border-width: 1.5px; backdrop-filter: none; box-shadow: 4px 5px 0 var(--bayang); }
+html[data-skin='sumi'] .btn, html[data-skin='sumi'] .btn-primary { border-radius: 1px; }
+html[data-skin='sumi'] .btn-primary { background: var(--tinta); color: var(--kertas); }
+html[data-skin='sumi'] .sn { filter: grayscale(0.75) contrast(0.95); }
+
+/* ── Woodblock print ── */
+html[data-skin='woodblock'] { --sh-r: 4px 4px 0 0; --sh-bw: 3px; --sh-wall: none; --bk-tshadow: none; --bk-title: #f7edcf; --bk-tx: #f7edcf; }
+html[data-skin='woodblock'][data-theme='siang'] {
+  --wb-line: #1a1a1a;
+  --kertas: #efe3c6; --kertas-2: #e4d6b2; --panel: #f5ecd3; --garis: #c9b88c; --tinta: #1f3a68; --grafit: #5d5440; --teks: #1a1a1a; --koreksi: #c23b22; --bayang: #1a1a1a;
+  --glass: #f4e9cc; --glass-b: #1a1a1a;
+  --desk-bg: repeating-linear-gradient(0deg, transparent 0 10px, rgba(26, 26, 26, 0.07) 10px 11px), #e9dab4;
+  --sh-tx: #1a1a1a; --sh-dim: rgba(26, 26, 26, 0.7); --sh-bd: #1a1a1a; --sh-chip: rgba(26, 26, 26, 0.12); --sh-dash: rgba(26, 26, 26, 0.55);
+  --sh-bg: repeating-linear-gradient(0deg, transparent 0 13px, rgba(26, 26, 26, 0.09) 13px 14px), #dec98f; --sh-shadow: 7px 7px 0 #1a1a1a;
+  --rows-bg: linear-gradient(180deg, transparent calc(var(--rowh) - 14px), #1a1a1a calc(var(--rowh) - 14px), #1a1a1a calc(var(--rowh) - 11px), #1f3a68 calc(var(--rowh) - 11px), #1f3a68 calc(var(--rowh) - 7px), #efe3c6 calc(var(--rowh) - 7px), #efe3c6 calc(var(--rowh) - 6px), #1f3a68 calc(var(--rowh) - 6px), #1f3a68 calc(var(--rowh) - 3px), #1a1a1a calc(var(--rowh) - 3px));
+  --plank-bg: linear-gradient(#1a1a1a 0 2px, #1f3a68 2px 6px, #efe3c6 6px 7px, #1f3a68 7px 11px, #1a1a1a 11px);
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #223a6b 0%, #101a33 62%);
+}
+html[data-skin='woodblock'][data-theme='malam'] {
+  --wb-line: #e9dfc2;
+  --kertas: #14213d; --kertas-2: #1c2b4d; --panel: #192746; --garis: #3b4f7f; --tinta: #f2b134; --grafit: #a9b3cc; --teks: #efe5c6; --koreksi: #ff8f73; --bayang: #070d1c;
+  --glass: #1a2a4f; --glass-b: #e9dfc2;
+  --desk-bg: repeating-linear-gradient(0deg, transparent 0 10px, rgba(233, 223, 194, 0.06) 10px 11px), #0f1a33;
+  --sh-tx: #efe5c6; --sh-dim: rgba(239, 229, 198, 0.7); --sh-bd: #e9dfc2; --sh-chip: rgba(233, 223, 194, 0.14); --sh-dash: rgba(233, 223, 194, 0.5);
+  --sh-bg: repeating-linear-gradient(0deg, transparent 0 13px, rgba(233, 223, 194, 0.07) 13px 14px), #1d2f5a; --sh-shadow: 7px 7px 0 #070d1c;
+  --rows-bg: linear-gradient(180deg, transparent calc(var(--rowh) - 14px), #e9dfc2 calc(var(--rowh) - 14px), #e9dfc2 calc(var(--rowh) - 11px), #b4452c calc(var(--rowh) - 11px), #b4452c calc(var(--rowh) - 7px), #e9dfc2 calc(var(--rowh) - 7px), #e9dfc2 calc(var(--rowh) - 6px), #b4452c calc(var(--rowh) - 6px), #b4452c calc(var(--rowh) - 3px), #e9dfc2 calc(var(--rowh) - 3px));
+  --plank-bg: linear-gradient(#e9dfc2 0 2px, #b4452c 2px 6px, #e9dfc2 6px 7px, #b4452c 7px 11px, #e9dfc2 11px);
+  --bd-bg: radial-gradient(120% 80% at 30% 0%, #223a6b 0%, #101a33 62%);
+}
+html[data-skin='woodblock'] .bk:not(.has-img) { border: 3px solid var(--wb-line); border-radius: 2px; box-shadow: 5px 5px 0 var(--wb-line);
+  background: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.13) 0 1.5px, transparent 1.5px 6px), linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0 9px, transparent 9px), var(--bk); padding: 9px 7px 7px 16px; }
+html[data-skin='woodblock'] .bk-mid::before { height: 3px; background: #f7edcf; width: 44%; }
+html[data-skin='woodblock'] .bk-pg { background: #f7edcf; height: 4px; }
+html[data-skin='woodblock'] .plank { box-shadow: none; height: 12px; }
+html[data-skin='woodblock'] .card { border: 2px solid var(--glass-b); border-radius: 3px; backdrop-filter: none; box-shadow: 5px 5px 0 var(--bayang); }
+html[data-skin='woodblock'] .btn, html[data-skin='woodblock'] .btn-primary { border-radius: 2px; border: 2px solid var(--glass-b); box-shadow: 3px 3px 0 var(--bayang); }
+html[data-skin='woodblock'] .btn-primary { background: var(--koreksi); color: #fff7e4; border-color: var(--glass-b); }
+html[data-skin='woodblock'] .wordmark, html[data-skin='woodblock'] .search { border: 2px solid var(--glass-b); border-radius: 3px; backdrop-filter: none; }
+html[data-skin='woodblock'] .sn { border: 2px solid #1a1a1a; box-shadow: 3px 3px 0 #1a1a1a; }
+
+/* halaman detail ikut tema */
+.bd { background: var(--bd-bg, radial-gradient(120% 80% at 30% 0%, #3a2616 0%, #1b120a 55%, #100a05 100%)); }
