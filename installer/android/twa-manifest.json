@@ -22,7 +22,7 @@
   "orientation": "default",
   "minSdkVersion": 24,
   "fallbackType": "customtabs",
-  "enableSiteSettingsShortcut": false,
+  "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "isMetaQuest": false,
   "signingKey": { "path": "./android.keystore", "alias": "ruangtulis" },
