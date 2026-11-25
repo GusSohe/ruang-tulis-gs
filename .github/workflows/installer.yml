@@ -56,8 +56,11 @@ jobs:
           BUBBLEWRAP_KEY_PASSWORD: ${{ env.KS_PASS }}
         run: |
           cp ../installer/android/twa-manifest.json .
+          # Gradle menolak bila ANDROID_HOME dan ANDROID_SDK_ROOT menunjuk lokasi berbeda.
+          export ANDROID_HOME="$HOME/bwsdk"
+          export ANDROID_SDK_ROOT="$HOME/bwsdk"
           bubblewrap update --skipVersionUpgrade
-          yes | bubblewrap build --skipPwaValidation
+          bubblewrap build --skipPwaValidation
       - name: Catat sidik jari kunci
         run: |
           echo "### Sidik jari SHA-256 kunci APK" >> "$GITHUB_STEP_SUMMARY"
