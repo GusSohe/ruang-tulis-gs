@@ -22,9 +22,17 @@ jobs:
         run: npm install -g @bubblewrap/cli
       - name: Siapkan Android SDK
         run: |
+          echo "ANDROID_HOME=$ANDROID_HOME"; ls "$ANDROID_HOME"; ls "$ANDROID_HOME/cmdline-tools"
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          # Bubblewrap hanya menerima folder SDK yang berisi "tools" atau "bin".
+          # SDK bawaan runner tidak punya keduanya, jadi buat folder pembungkus berisi tautan.
+          SDK="$HOME/bwsdk"
+          mkdir -p "$SDK"
+          for d in "$ANDROID_HOME"/*; do ln -sfn "$d" "$SDK/$(basename "$d")"; done
+          ln -sfn "$ANDROID_HOME/cmdline-tools/latest" "$SDK/tools"
           mkdir -p ~/.bubblewrap
-          printf '{"jdkPath":"%s","androidSdkPath":"%s"}' "$JAVA_HOME" "$ANDROID_HOME" > ~/.bubblewrap/config.json
+          printf '{"jdkPath":"%s","androidSdkPath":"%s"}' "$JAVA_HOME" "$SDK" > ~/.bubblewrap/config.json
+          cat ~/.bubblewrap/config.json
       - name: Siapkan kunci tanda tangan
         env:
           KS_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
@@ -49,7 +57,7 @@ jobs:
         run: |
           cp ../installer/android/twa-manifest.json .
           bubblewrap update --skipVersionUpgrade
-          bubblewrap build --skipPwaValidation
+          yes | bubblewrap build --skipPwaValidation
       - name: Catat sidik jari kunci
         run: |
           echo "### Sidik jari SHA-256 kunci APK" >> "$GITHUB_STEP_SUMMARY"
