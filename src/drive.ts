@@ -1,5 +1,6 @@
 // Google Drive: masuk (Google Identity Services), folder "Ruang Tulis GS", unggah, unduh. Hanya izin drive.file:
 // aplikasi hanya melihat berkas yang ia buat sendiri, tidak seluruh Drive.
+import { APP_CLIENT_ID } from './config'
 import type { Ctx } from './ctx'
 import { getCut, getHours, getLog, getTime, setExtra, setHours, setLog } from './log'
 import { getIdeas, setIdeas } from './ideas'
@@ -19,8 +20,11 @@ const ls = {
   set: (k: string, v: string) => { try { localStorage.setItem(k, v) } catch { /* tidak kritis */ } },
   del: (k: string) => { try { localStorage.removeItem(k) } catch { /* tidak kritis */ } },
 }
-/** Client ID: bisa dibawa saat build (VITE_GOOGLE_CLIENT_ID) atau ditempel pengguna di dialog Drive. */
-export const getClientId = () => ls.get('rtgs.gcid') || ((import.meta as { env?: Record<string, string> }).env?.VITE_GOOGLE_CLIENT_ID ?? '')
+/** Client ID: milik pengguna (lanjutan) > VITE_GOOGLE_CLIENT_ID saat build > bawaan di config.ts. */
+const builtinId = () => ((import.meta as { env?: Record<string, string> }).env?.VITE_GOOGLE_CLIENT_ID ?? '') || APP_CLIENT_ID
+export const hasBuiltinId = () => !!builtinId()
+export const customClientId = () => ls.get('rtgs.gcid') || ''
+export const getClientId = () => customClientId() || builtinId()
 export const setClientId = (v: string) => (v.trim() ? ls.set('rtgs.gcid', v.trim()) : ls.del('rtgs.gcid'))
 export const isLinked = () => ls.get('rtgs.drive.on') === '1'
 export const lastPush = () => Number(ls.get('rtgs.drive.push')) || 0

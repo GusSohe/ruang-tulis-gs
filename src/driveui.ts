@@ -2,7 +2,7 @@
 import type { Ctx } from './ctx'
 import { ago } from './model'
 import { getMode } from './mode'
-import { DriveError, canUseGoogle, fetchRemote, getClientId, getToken, hasLocalChanges, isLinked, lastPush, markLinked, pullAndPush, push, setClientId, unlink } from './drive'
+import { DriveError, canUseGoogle, fetchRemote, customClientId, getClientId, getToken, hasBuiltinId, hasLocalChanges, isLinked, lastPush, markLinked, pullAndPush, push, setClientId, unlink } from './drive'
 
 const msg = (e: unknown) => (e instanceof DriveError ? e.message : 'Terjadi kesalahan saat menghubungi Drive.')
 
@@ -23,13 +23,18 @@ export function openDrive(ctx: Ctx, after: () => void) {
   d.className = 'glass-dlg drive-dlg'
   const linked = isLinked()
   const why = canUseGoogle()
+  const own = hasBuiltinId()
+  const input = (v: string) => `<div class="field"><label for="dv-id">Client ID Google</label><input id="dv-id" type="text" autocomplete="off" spellcheck="false" placeholder="xxxx.apps.googleusercontent.com" value="${v}"><small>Dibuat gratis di Google Cloud Console. Panduannya ada di README.</small></div>`
+  const field = own
+    ? `<details class="dv-adv"${customClientId() ? ' open' : ''}><summary>Lanjutan: pakai Client ID sendiri</summary><small>Kosongkan untuk memakai bawaan aplikasi.</small>${input(customClientId())}</details>`
+    : input(getClientId())
   d.innerHTML = `<form method="dialog"><h2>Google Drive</h2>
     <p class="sp-sub">Tulisanmu tetap di perangkat ini. Drive hanya menyimpan salinan di folder <b>Ruang Tulis GS</b> milikmu, dan aplikasi hanya bisa melihat berkas yang ia buat sendiri.</p>
-    <div class="field"><label for="dv-id">Client ID Google</label><input id="dv-id" type="text" autocomplete="off" spellcheck="false" placeholder="xxxx.apps.googleusercontent.com" value="${getClientId()}"><small>Dibuat gratis di Google Cloud Console. Panduannya ada di README.</small></div>
+    ${field}
     <p class="bk-last" id="dv-s">${linked ? (lastPush() ? `Terhubung. Terakhir ke Drive ${ago(lastPush())}.` : 'Terhubung.') : why && getClientId() ? why : 'Belum terhubung.'}</p>
     <div class="dialog-actions">${linked
       ? '<button type="button" class="btn" id="dv-u">Putuskan</button><button type="button" class="btn" id="dv-p">Ambil dari Drive</button><button type="button" class="btn btn-primary" id="dv-n">Cadangkan sekarang</button>'
-      : '<button type="button" class="btn" id="dv-x">Tutup</button><button type="button" class="btn btn-primary" id="dv-c">Sambungkan Google</button>'}</div></form>`
+      : '<button type="button" class="btn" id="dv-x">Tutup</button><button type="button" class="btn btn-primary" id="dv-c">' + (own ? 'Masuk dengan Google' : 'Sambungkan Google') + '</button>'}</div></form>`
   document.body.append(d)
   d.addEventListener('close', () => d.remove())
   const st = d.querySelector<HTMLElement>('#dv-s')!

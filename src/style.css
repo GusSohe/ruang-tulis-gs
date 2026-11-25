@@ -1074,3 +1074,6 @@ html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent;
   .snd .vol input { flex: 1; max-width: 180px; width: auto; }
   .snd-bar { justify-content: center; }
 }
+.dv-adv { margin: 10px 0; font-size: 13.5px; }
+.dv-adv summary { cursor: pointer; opacity: 0.8; min-height: 32px; display: flex; align-items: center; }
+.dv-adv small { display: block; opacity: 0.65; margin: 4px 0 8px; }
