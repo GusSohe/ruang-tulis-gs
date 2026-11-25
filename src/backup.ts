@@ -9,6 +9,7 @@ import { getTombs, setTombs } from './tomb'
 import { getIntro, getMode, setIntro } from './mode'
 import { openWelcome } from './welcome'
 import { openDrive } from './driveui'
+import { openReset } from './reset'
 import { isLinked } from './drive'
 import { canPromptInstall, isIOS, isStandalone, offlineState, promptInstall } from './pwa'
 
@@ -64,6 +65,7 @@ export function openBackup(ctx: Ctx, after: () => void) {
     <p class="bk-mode">Mode: <b>${getMode() === 'drive' ? (isLinked() ? 'Google Drive, terhubung' : 'Google Drive, belum terhubung') : 'Di perangkat ini saja'}</b> <button type="button" class="btn-text" id="bk-m">Ganti</button>${getMode() === 'drive' ? ' <button type="button" class="btn-text" id="bk-g">Pengaturan Drive</button>' : ''}</p>
     ${pwaRow()}
     <label class="sp-ck"><input type="checkbox" id="bk-i" ${getIntro() ? 'checked' : ''}> Animasi lampu saat membuka aplikasi</label>
+    <p class="bk-pwa"><button type="button" class="btn-text danger" id="bk-x">Hapus semua data…</button></p>
     <div class="dialog-actions"><button type="button" class="btn" id="bk-r">Pulihkan dari berkas</button><button type="button" class="btn btn-primary" id="bk-d">Unduh cadangan</button></div>
     <input type="file" accept="application/json,.json" hidden id="bk-f"><p class="bk-cr">Ruang Tulis GS · © 2026 Gus Sohe. Hak cipta dilindungi.</p></form>`
   document.body.append(d)
@@ -75,6 +77,7 @@ export function openBackup(ctx: Ctx, after: () => void) {
   })
   d.querySelector<HTMLInputElement>('#bk-i')!.addEventListener('change', (e) => setIntro((e.target as HTMLInputElement).checked))
   d.querySelector('#bk-p')?.addEventListener('click', async () => { if (await promptInstall()) { d.close(); ctx.toast('Aplikasi terpasang') } })
+  d.querySelector('#bk-x')!.addEventListener('click', () => { d.close(); openReset(ctx) })
   d.querySelector('#bk-g')?.addEventListener('click', () => { d.close(); openDrive(ctx, after) })
   d.querySelector('#bk-m')!.addEventListener('click', () => {
     d.close()

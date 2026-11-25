@@ -194,5 +194,13 @@ export async function pullAndPush(ctx: Ctx, remote: Snapshot): Promise<number> {
   return conflicts
 }
 
+/** Pindahkan folder "Ruang Tulis GS" buatan aplikasi ke Tempat Sampah Drive (masih bisa dipulihkan sekitar 30 hari). */
+export async function trashDriveFolder(): Promise<number> {
+  const r = await api(`/files?q=${q(`name='${FOLDER}' and mimeType='application/vnd.google-apps.folder' and trashed=false`)}&fields=files(id)`)
+  const ids: string[] = ((await r.json()).files ?? []).map((f: { id: string }) => f.id)
+  for (const id of ids) await api(`/files/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ trashed: true }) })
+  return ids.length
+}
+
 export const hasLocalChanges = (ctx: Ctx) => localStamp(snapshot(ctx)) > (Number(ls.get('rtgs.drive.stamp')) || 0)
 export const markLinked = () => ls.set('rtgs.drive.on', '1')

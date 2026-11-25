@@ -1077,3 +1077,10 @@ html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent;
 .dv-adv { margin: 10px 0; font-size: 13.5px; }
 .dv-adv summary { cursor: pointer; opacity: 0.8; min-height: 32px; display: flex; align-items: center; }
 .dv-adv small { display: block; opacity: 0.65; margin: 4px 0 8px; }
+.glass-dlg .btn-text.danger { color: #ff9a86; }
+.glass-dlg .btn.danger { color: #ff9a86; border-color: rgba(255, 154, 134, 0.5); }
+.glass-dlg .btn.danger:disabled { opacity: 0.4; cursor: not-allowed; }
+.dv-note { font-size: 12.5px; opacity: 0.7; margin: -6px 0 12px; }
+.glass-dlg .field input { width: 100%; background: rgba(255, 235, 200, 0.1); color: #f6ecd6; border: 1px solid rgba(255, 235, 200, 0.28); border-radius: 8px; padding: 9px 11px; }
+.glass-dlg .field input::placeholder { color: rgba(246, 236, 214, 0.45); }
+.glass-dlg .field label { display: block; margin-bottom: 4px; opacity: 0.85; }
