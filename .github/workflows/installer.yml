@@ -60,6 +60,11 @@ jobs:
           export ANDROID_HOME="$HOME/bwsdk"
           export ANDROID_SDK_ROOT="$HOME/bwsdk"
           bubblewrap update --skipVersionUpgrade
+          # R8 mengacak nama kelas androidbrowserhelper sehingga LauncherActivity crash
+          # ("Component class R.u does not exist"). Matikan minify dan jaga kelasnya.
+          sed -i 's/minifyEnabled true/minifyEnabled false/; s/shrinkResources true/shrinkResources false/' app/build.gradle
+          printf '\n-keep class com.google.androidbrowserhelper.** { *; }\n-keep class %s.** { *; }\n' "io.github.gussohe.ruangtulis" >> app/proguard-rules.pro
+          grep -nE "minifyEnabled|shrinkResources" app/build.gradle
           bubblewrap build --skipPwaValidation
       - name: Catat sidik jari kunci
         run: |
