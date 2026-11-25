@@ -1,0 +1,76 @@
+name: Bangun installer
+# Dijalankan manual: tab Actions -> "Bangun installer" -> Run workflow.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+
+jobs:
+  android:
+    name: APK Android
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Pasang Bubblewrap
+        run: npm install -g @bubblewrap/cli
+      - name: Siapkan Android SDK
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          mkdir -p ~/.bubblewrap
+          printf '{"jdkPath":"%s","androidSdkPath":"%s"}' "$JAVA_HOME" "$ANDROID_HOME" > ~/.bubblewrap/config.json
+      - name: Siapkan kunci tanda tangan
+        env:
+          KS_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          KS_PW: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          mkdir -p twa
+          if [ -n "$KS_B64" ] && [ -n "$KS_PW" ]; then
+            echo "$KS_B64" | base64 -d > twa/android.keystore
+            PASS="$KS_PW"
+          else
+            PASS=$(openssl rand -hex 16)
+            keytool -genkeypair -keystore twa/android.keystore -alias ruangtulis -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass "$PASS" -keypass "$PASS" -dname "CN=Gus Sohe, O=Ruang Tulis GS, C=ID"
+          fi
+          echo "::add-mask::$PASS"
+          echo "KS_PASS=$PASS" >> "$GITHUB_ENV"
+      - name: Bangun APK
+        working-directory: twa
+        env:
+          BUBBLEWRAP_KEYSTORE_PASSWORD: ${{ env.KS_PASS }}
+          BUBBLEWRAP_KEY_PASSWORD: ${{ env.KS_PASS }}
+        run: |
+          cp ../installer/android/twa-manifest.json .
+          bubblewrap update --skipVersionUpgrade
+          bubblewrap build --skipPwaValidation
+      - name: Catat sidik jari kunci
+        run: |
+          echo "### Sidik jari SHA-256 kunci APK" >> "$GITHUB_STEP_SUMMARY"
+          keytool -list -v -keystore twa/android.keystore -storepass "$KS_PASS" | grep "SHA256" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RuangTulisGS-Android-APK
+          path: twa/app-release-signed.apk
+          if-no-files-found: error
+
+  windows:
+    name: Pemasang Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pasang Inno Setup
+        run: choco install innosetup -y --no-progress
+      - name: Bangun pemasang
+        run: '& "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer\windows\RuangTulisGS.iss'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: RuangTulisGS-Windows-Setup
+          path: installer/windows/Output/RuangTulisGS-Setup.exe
+          if-no-files-found: error
